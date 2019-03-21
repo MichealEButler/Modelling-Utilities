@@ -1,4 +1,4 @@
-// to compile-> g++ main.cpp -o main -lSDL2 -std=gnu++0x
+// to compile-> g++ main.cpp -o main -std=gnu++0x
 
 #include <iostream>
 #include <fstream>
