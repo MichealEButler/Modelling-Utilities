@@ -1,0 +1,1 @@
+g++ main.cpp Display.cpp World.cpp -o main -lSDL2 -std=gnu++0x
