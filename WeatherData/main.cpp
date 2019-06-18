@@ -127,7 +127,7 @@ void inputPrecip(string inFile, string outFile)
 {
 	// similar to above function but outputs annual precipitation instead
 	string colA, colB, colC, colD, colE, colF, colG, colH;
-	int rain = 0;
+	float rain = 0;
 	int counter = 0;
 	int removeLine = 0;
 
@@ -163,7 +163,7 @@ void inputPrecip(string inFile, string outFile)
 		file >> colF;
 		file >> colG;
 
-		rain = rain + stoi(colF);
+		rain = rain + strtof((colF).c_str(), 0);
 
 		if (counter == 12)
 		{
