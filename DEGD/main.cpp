@@ -16,6 +16,7 @@ float JANMIN;
 
 // PROTOTYPES //
 void inputFile(string inFile, string outFile);
+void inputPrecip(string inFile, string outFile);
 void outputFile(string filename);
 void outputDD(string filename, string outFile);
 float getAverage(float a, float b);
@@ -46,7 +47,9 @@ int main()
 	cin >> file;
 
 	inputFile((directory+folder+file), directory + folder + "outputAvg.txt");
+	inputPrecip((directory+folder+file), directory + folder + "annualRain.txt");
 	outputDD(directory + folder + "outputAvg.txt", (directory+folder+"outputDD.txt"));
+
 	system("PAUSE");
 	return 0;
 }
@@ -118,6 +121,57 @@ void inputFile(string inFile, string outFile)
 	file.close();
 	outputFile.close();
 
+}
+
+void inputPrecip(string inFile, string outFile)
+{
+	// similar to above function but outputs annual precipitation instead
+	string colA, colB, colC, colD, colE, colF, colG, colH;
+	float rain = 0;
+	int counter = 0;
+	int removeLine = 0;
+
+	ifstream file;
+	file.open(inFile);
+
+	ofstream outputFile;
+	outputFile.open(outFile);
+
+	if (!file)
+	{
+		cout << "Could not open rain file! " << endl;
+	}
+
+	while (file)
+	{
+		counter++;
+
+		string strInput;
+
+		if (removeLine < 1)
+		{
+			removeLine++;
+			getline(file, strInput);
+			cout << strInput << endl;
+		}
+
+		file >> colA;
+		file >> colB;
+		file >> colC;
+		file >> colD;
+		file >> colE;
+		file >> colF;
+		file >> colG;
+
+		rain = rain + strtof((colF).c_str(), 0);
+
+		if (counter == 12)
+		{
+			outputFile << colA << " " << rain << " " << endl;
+			counter = 0;
+			rain = 0;
+		}
+	}
 }
 
 void outputFile(string filename)
@@ -196,7 +250,7 @@ void outputDD(string filename, string outFile)
 			cout << "Avg Temp for July " << year << " = " << julAvg << endl;
 			julAvg1 = strtof((julAvg).c_str(), 0);
 			cout << "DEGD for " << year << " = " << calculateDD(janAvg1, julAvg1) << endl;
-			outputFile << year << ", " << calculateDD(janAvg1, julAvg1) << endl;
+			outputFile << year << " " << calculateDD(janAvg1, julAvg1) << endl;
 			smonth = 0;
 		}
 	}
