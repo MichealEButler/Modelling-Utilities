@@ -1,0 +1,1 @@
+sudo g++ main.cpp Input.cpp -o main -std=gnu++0x
